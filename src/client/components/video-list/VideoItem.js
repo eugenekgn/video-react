@@ -4,15 +4,15 @@ import YouTube from 'react-youtube';
 const VideoItem = ({videoId, id, options}) => {
 
   const opts = options || {
-    height: '390',
-    width: '640',
+    height: '50px',
+    width: '50px',
     playerVars: {
       autoplay: 1
     }
   };
-
+  console.log(opts);
   return (
-    <div className="p-2">
+    <div className="p-2 videoItem">
       <YouTube
         videoId={videoId}
         id={id}
