@@ -1,7 +1,8 @@
 import React from 'react';
 import YouTube from 'react-youtube';
+import PropTypes from 'prop-types';
 
-const VideoItem = ({ videoId, options }) => {
+const VideoItem = ({videoId, options}) => {
 
   const opts = options || {
     height: 'inheret',
@@ -25,8 +26,8 @@ const VideoItem = ({ videoId, options }) => {
 };
 
 VideoItem.propTypes = {
-  videoId: React.PropTypes.string.isRequired,
-  options: React.PropTypes.object
+  videoId: PropTypes.string.isRequired,
+  options: PropTypes.object
 };
 
 export default VideoItem;

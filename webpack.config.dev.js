@@ -25,7 +25,7 @@ export default {
           path.join(__dirname, 'src/client'),
           path.join(__dirname, 'src/server/shared')
         ],
-        loaders: ['react-hot', 'babel']
+        loaders: ['react-hot-loader/webpack', 'babel']
       },
       {
         test: /\.scss$/,

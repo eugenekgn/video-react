@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { loadVideos } from '../../actions/videos';
 import { connect } from 'react-redux';
-import data from '../../data.json';
 import VideoItem from "./VideoItem";
 import './VideoListPage.scss';
 import InfiniteScroll from 'react-infinite-scroller';
