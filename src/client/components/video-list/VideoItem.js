@@ -1,32 +1,34 @@
 import React from 'react';
 import YouTube from 'react-youtube';
 
-const VideoItem = ({videoId, id, options}) => {
+const VideoItem = ({ videoId, options }) => {
 
   const opts = options || {
-    height: '50px',
-    width: '50px',
+    height: 'inheret',
+    width: 'inheret',
     playerVars: {
       autoplay: 1
     }
   };
-  console.log(opts);
+
   return (
-    <div className="p-2 videoItem">
-      <YouTube
-        videoId={videoId}
-        id={id}
-        opt={opts}
-      />
+    <div className="p-2 col-lg-6 col-md-6 col-sm-6 col-12">
+      <div className="embed-responsive embed-responsive-16by9">
+        <YouTube
+          videoId={videoId}
+          opt={opts}
+          className="embed-responsive-item"
+        />
+      </div>
     </div>
   )
 };
 
 VideoItem.propTypes = {
   videoId: React.PropTypes.string.isRequired,
-  id: React.PropTypes.string.isRequired,
-  options: React.PropTypes.object.isRequired,
+  options: React.PropTypes.object
 };
 
 export default VideoItem;
+
 
