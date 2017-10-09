@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import {loadVideos} from '../../actions/videos';
-import {connect} from 'react-redux';
-import VideoItem from "./VideoItem";
-import './VideoListPage.scss';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
+import PropTypes from 'prop-types';
+import VideoItem from './VideoItem';
+import './VideoListPage.scss';
+import { loadVideos } from '../../actions/videos';
 
 
 class VideoListPage extends Component {
-
   constructor(props) {
     super(props);
 
@@ -21,22 +21,21 @@ class VideoListPage extends Component {
   }
 
   renderVideos() {
-    const {videos} = this.props;
+    const { videos } = this.props;
     return (
       <div className="d-flex flex-row flex-wrap">
-        {videos.map(video => <VideoItem key={video.id} videoId={video.id}/>)}
+        {videos.map(video => <VideoItem key={video.id} videoId={video.id} />)}
       </div>
     );
-  };
+  }
 
   componentDidMount() {
     this.props.loadVideos(10, this.props.nextPageToken);
-    this.setState({hasMoreItems: true});
-
+    this.setState({ hasMoreItems: true });
   }
 
   loadVideos(e) {
-    return this.props.loadVideos(10, this.props.nextPageToken)
+    return this.props.loadVideos(10, this.props.nextPageToken);
   }
 
   render() {
@@ -57,12 +56,17 @@ class VideoListPage extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    nextPageToken: state.videoList.nextPageToken,
-    videos: state.videoList.videos
-  }
+VideoListPage.propTypes = {
+  videos: PropTypes.array.isRequired,
+  nextPageToken: PropTypes.string,
+  loadVideos: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, {loadVideos})(VideoListPage);
+
+const mapStateToProps = state => ({
+  nextPageToken: state.videoList.nextPageToken,
+  videos: state.videoList.videos,
+});
+
+export default connect(mapStateToProps, { loadVideos })(VideoListPage);
 

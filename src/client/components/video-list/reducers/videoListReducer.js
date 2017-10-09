@@ -6,12 +6,12 @@ const videoListReducer = (state = initialState, action) => {
     case types.CHANGE_VIDEO_CATEGORY:
       return {
         videos: action.data.items,
-        nextPageToken: action.data.nextPageToken
+        nextPageToken: action.data.nextPageToken,
       };
     case types.LOAD_VIDEOS:
       return {
         videos: state.videos.concat(action.data.items),
-        nextPageToken: action.data.nextPageToken
+        nextPageToken: action.data.nextPageToken,
       };
     default:
       return state;

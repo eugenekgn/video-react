@@ -3,13 +3,12 @@ import YouTube from 'react-youtube';
 import PropTypes from 'prop-types';
 
 const VideoItem = ({videoId, options}) => {
-
   const opts = options || {
-    height: 'inheret',
-    width: 'inheret',
+    height: 'inherent',
+    width: 'inherent',
     playerVars: {
-      autoplay: 1
-    }
+      autoplay: 1,
+    },
   };
 
   return (
@@ -22,14 +21,12 @@ const VideoItem = ({videoId, options}) => {
         />
       </div>
     </div>
-  )
+  );
 };
 
 VideoItem.propTypes = {
   videoId: PropTypes.string.isRequired,
-  options: PropTypes.object
+  options: PropTypes.object,
 };
 
 export default VideoItem;
-
-

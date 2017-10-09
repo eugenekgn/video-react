@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import videoList from './components/video-list/reducers/videoListReducer';
 
 const rootReducer = combineReducers({
-  videoList
+  videoList,
 });
 
 export default rootReducer;
