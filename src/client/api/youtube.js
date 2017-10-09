@@ -5,7 +5,7 @@ class YoutubeApi {
 
     return new Promise((resolve, reject) => {
       resolve({
-        video: [{test: 'test'}],
+        videos: [{ test: 'test' }, { test: 'test' }, { test: 'test' }, { test: 'test' }, { test: 'test' }, { test: 'test' }, { test: 'test' }],
         nextPageToken: 'XYD'
       });
     })
