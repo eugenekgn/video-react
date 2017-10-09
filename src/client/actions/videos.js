@@ -2,6 +2,7 @@ import { LOAD_VIDEOS } from './actionTypes';
 import youTubeApi from '../api/youtube';
 
 const loadVideosSuccess = (data) => {
+  console.log('load videos');
   return {
     type: LOAD_VIDEOS,
     data: data

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { loadVideos } from '../../actions/videos';
-import { connect } from 'react-redux';
+import React, {Component} from 'react'
+import {loadVideos} from '../../actions/videos';
+import {connect} from 'react-redux';
 import VideoItem from "./VideoItem";
 import './VideoListPage.scss';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -21,18 +21,19 @@ class VideoListPage extends Component {
   }
 
   renderVideos() {
-    const { vidoes } = this.props.videos;
+    const {videos} = this.props;
     console.log(this.props);
     return (
       <div className="d-flex flex-row flex-wrap">
-        {vidoes.map(video => <VideoItem key={video.id} videoId={video.id} />)}
+        {videos.map(video => <VideoItem key={video.id} videoId={video.id}/>)}
       </div>
     );
   };
 
   componentDidMount() {
-    console.log('comp did mount')
     this.props.loadVideos(10, this.props.nextPageToken);
+    this.setState({hasMoreItems: true});
+
   }
 
   loadVideos(e) {
@@ -46,6 +47,7 @@ class VideoListPage extends Component {
         <InfiniteScroll
           pageStart={0}
           loadMore={this.loadVideos}
+          initialLoad={false}
           hasMore={this.state.hasMoreItems}
           loader={<div className="loader">Loading ...</div>}
         >
@@ -64,5 +66,5 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { loadVideos })(VideoListPage);
+export default connect(mapStateToProps, {loadVideos})(VideoListPage);
 
