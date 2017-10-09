@@ -1,12 +1,8 @@
 import {combineReducers} from 'redux';
+import videoList from './components/video-list/reducers/videoListReducer';
 
-const filler = (state = [], action) => {
-  return state;
-};
-
-// es6 shorthand property name, throw away course
 const rootReducer = combineReducers({
-  filler
+  videoList
 });
 
 export default rootReducer;

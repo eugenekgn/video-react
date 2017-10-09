@@ -9,6 +9,7 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 
+
 const Routing = () => (
   <BrowserRouter>
     <Route path="/" component={App}/>

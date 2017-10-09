@@ -2,6 +2,7 @@
   <dictionary name="eugene">
     <words>
       <w>autoplay</w>
+      <w>toggler</w>
     </words>
   </dictionary>
 </component>

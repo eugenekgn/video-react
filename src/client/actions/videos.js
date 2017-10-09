@@ -1,12 +1,38 @@
-import { LOAD_VIDEOS } from './actionTypes';
-import axios from 'axios';
-// import { KEY } from '../config';
+import {LOAD_VIDEOS} from './actionTypes';
+import youTubeApi from '../api/youtube';
 
+const loadVideosSuccess = (videos) => {
+  return {
+    type: LOAD_VIDEOS,
+    videos: videos
+  };
+};
+
+export const getVideoCategories = () => {
+  return youTubeApi.getVideoCategories();
+};
+
+export const setVideoCategory = () => {
+  return (dispatch) => {
+    return loadVideos().then(videos => {
+      dispatch(loadVideosSuccess(videos));
+    }).catch(error => {
+      throw (error);
+    });
+  };
+};
 
 
 export const loadVideos = (take = 10, pageToken) => {
-  const pageTokenPart = pageToken ? `&pageToken=${pageToken}` : '';
-  return axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${take}&key=AIzaSyA9GmqA95EB6SmOQNwNQeWK61mwKT0dZB0${pageTokenPart}`)
-    .then(response => response.data);
+  return (dispatch) => {
+    return youTubeApi.getVideos(take, pageToken)
+      .then(videos => {
+        // dispatch(loadVideosSuccess(videos));
+        return videos;
+      }).catch(error => {
+        throw (error);
+      });
+  };
 };
+
 

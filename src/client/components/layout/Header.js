@@ -1,46 +1,85 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { connect } from 'react-redux';
+import { getVideoCategories, setVideoCategory } from "../../actions/videos";
 
-class Header extends Component() {
+
+class Header extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+
     this.toggle = this.toggle.bind(this);
 
     this.state = {
-      dropdownOpen: false
+      dropDownValue: 0,
+      dropdownValue: 'Select Category',
+      dropdownOpen: false,
+      categories: []
     };
   }
 
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  toggle(e) {
+    e.preventDefault();
+    const selectedValue = e.currentTarget.value;
+    const selectedText = e.currentTarget.textContent;
+
+    if (!!selectedValue && selectedValue !== this.state.selectedValue) {
+
+      setVideoCategory(selectedValue).then(r => {
+        this.setState({
+          dropDownId: selectedValue,
+          dropdownValue: selectedText || this.state.selectedText,
+          dropdownOpen: !this.state.dropdownOpen
+        });
+      });
+    } else {
+      this.setState({
+        dropdownOpen: !this.state.dropdownOpen
+      });
+    }
+
   }
 
-  reunder() {
+  componentDidMount() {
+    const buildCategories = [];
+    buildCategories.push(
+      <DropdownItem value={0} key={0}>All</DropdownItem>
+    )
 
+    getVideoCategories()
+      .then((categories) => {
+        categories.map((category) => {
+          buildCategories.push(
+            <DropdownItem value={category.id} key={category.id}>{category.snippet.title}</DropdownItem>
+          )
+        });
+
+        this.setState({
+          categories: buildCategories
+        })
+      })
+  }
+
+  render() {
+    const { dropdownValue } = this.state;
     return (
-      <nav className="navbar navbar-toggleable-md navbar-light bg-primary fixed-top" >
-        <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <nav className="navbar navbar-toggleable-md navbar-light bg-primary fixed-top">
+        <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <a className="navbar-brand" href="#">
           Video
-    </a>
+        </a>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret>
-              Dropdown
-    </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem header>Header</DropdownItem>
-              <DropdownItem disabled>Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Another Action</DropdownItem>
+              {dropdownValue}
+            </DropdownToggle>
+            <DropdownMenu children={this.state.categories}>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -48,4 +87,11 @@ class Header extends Component() {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories
+  }
+};
+
+
+export default connect(null, { setVideoCategory })(Header);
