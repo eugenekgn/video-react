@@ -21,11 +21,11 @@ class VideoListPage extends Component {
   }
 
   renderVideos() {
-    const { videos } = this.props;
-    console.log('videos', videos);
+    const { vidoes } = this.props.videos;
+    console.log(this.props);
     return (
       <div className="d-flex flex-row flex-wrap">
-        videos.map((video, index) => <VideoItem key={video.id} videoId={video.id} />
+        {vidoes.map(video => <VideoItem key={video.id} videoId={video.id} />)}
       </div>
     );
   };

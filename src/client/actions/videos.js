@@ -1,10 +1,10 @@
 import { LOAD_VIDEOS } from './actionTypes';
 import youTubeApi from '../api/youtube';
 
-const loadVideosSuccess = (videos) => {
+const loadVideosSuccess = (data) => {
   return {
     type: LOAD_VIDEOS,
-    videos: videos
+    data: data
   };
 };
 
@@ -22,17 +22,16 @@ export const setVideoCategory = () => {
   };
 };
 
-
 export const loadVideos = (take = 10, pageToken) => {
   return (dispatch) => {
     return youTubeApi.getVideos(take, pageToken)
-      .then(videos => {
-        dispatch(loadVideosSuccess(videos));
-        return videos;
+      .then(response => {
+        dispatch(loadVideosSuccess(response));
       }).catch(error => {
         throw (error);
       });
   };
 };
+
 
 
