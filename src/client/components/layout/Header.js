@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { connect } from 'react-redux';
-import { getVideoCategories, setVideoCategory } from "../../actions/videos";
+import React, {Component} from 'react';
+import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {connect} from 'react-redux';
+import {getVideoCategories, changeVideoCategory} from "../../actions/videos";
 
 
 class Header extends Component {
@@ -24,9 +24,8 @@ class Header extends Component {
     const selectedValue = e.currentTarget.value;
     const selectedText = e.currentTarget.textContent;
 
-    if (!!selectedValue && selectedValue !== this.state.selectedValue) {
-
-      setVideoCategory(selectedValue).then(r => {
+    if (!!selectedValue && selectedValue !== this.state.dropdownValue) {
+      this.props.changeVideoCategory(selectedValue).then(() => {
         this.setState({
           dropDownId: selectedValue,
           dropdownValue: selectedText || this.state.selectedText,
@@ -45,7 +44,7 @@ class Header extends Component {
     const buildCategories = [];
     buildCategories.push(
       <DropdownItem value={0} key={0}>All</DropdownItem>
-    )
+    );
 
     getVideoCategories()
       .then((categories) => {
@@ -62,12 +61,12 @@ class Header extends Component {
   }
 
   render() {
-    const { dropdownValue } = this.state;
+    const {dropdownValue} = this.state;
     return (
       <nav className="navbar navbar-toggleable-md navbar-light bg-primary fixed-top">
         <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <a className="navbar-brand" href="#">
@@ -94,4 +93,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(null, { setVideoCategory })(Header);
+export default connect(null, {getVideoCategories, changeVideoCategory})(Header);

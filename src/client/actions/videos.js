@@ -1,10 +1,16 @@
-import { LOAD_VIDEOS } from './actionTypes';
+import {LOAD_VIDEOS, CHANGE_VIDEO_CATEGORY} from './actionTypes';
 import youTubeApi from '../api/youtube';
 
 const loadVideosSuccess = (data) => {
-  console.log('load videos');
   return {
     type: LOAD_VIDEOS,
+    data: data
+  };
+};
+
+const changeVideoCategorySuccess = (data) => {
+  return {
+    type: CHANGE_VIDEO_CATEGORY,
     data: data
   };
 };
@@ -13,13 +19,15 @@ export const getVideoCategories = () => {
   return youTubeApi.getVideoCategories();
 };
 
-export const setVideoCategory = () => {
+export const changeVideoCategory = (categoryId) => {
   return (dispatch) => {
-    return loadVideos().then(videos => {
-      dispatch(loadVideosSuccess(videos));
-    }).catch(error => {
-      throw (error);
-    });
+    return youTubeApi.getVideos(10, null, categoryId)
+      .then(response => {
+        dispatch(changeVideoCategorySuccess(response));
+        return response;
+      }).catch(error => {
+        throw (error);
+      });
   };
 };
 
