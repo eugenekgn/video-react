@@ -2,7 +2,6 @@ import * as types from '../../../actions/actionTypes';
 import initialState from './initialState';
 
 const videoListReducer = (state = initialState, action) => {
-  console.log('reducer', action);
   switch (action.type) {
     case types.CHANGE_VIDEO_CATEGORY:
       return {

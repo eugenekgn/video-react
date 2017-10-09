@@ -22,7 +22,6 @@ class VideoListPage extends Component {
 
   renderVideos() {
     const {videos} = this.props;
-    console.log(this.props);
     return (
       <div className="d-flex flex-row flex-wrap">
         {videos.map(video => <VideoItem key={video.id} videoId={video.id}/>)}
@@ -39,7 +38,6 @@ class VideoListPage extends Component {
   loadVideos(e) {
     return this.props.loadVideos(10, this.props.nextPageToken)
   }
-
 
   render() {
     return (

@@ -1,13 +1,12 @@
 import axios from 'axios';
+const KEY = 'AIzaSyA9GmqA95EB6SmOQNwNQeWK61mwKT0dZB';
+
 
 class YoutubeApi {
   static getVideos(take = 10, pageToken, videoCategoryId) {
-
-
     const pageTokenPart = pageToken ? `&pageToken=${pageToken}` : '';
     const videoCategoryPart = videoCategoryId ? `&videoCategoryId=${videoCategoryId}` : '';
-    console.log(videoCategoryId);
-    return axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${take}&key=AIzaSyA9GmqA95EB6SmOQNwNQeWK61mwKT0dZB0${pageTokenPart}${videoCategoryPart}`)
+    return axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${take}&key=${KEY}0${pageTokenPart}${videoCategoryPart}`)
       .then(response => response.data)
   };
 
